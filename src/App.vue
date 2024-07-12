@@ -1,21 +1,39 @@
 <template>
   <div id="app">
-    <el-cascader v-model="selectedOptions" :options="options" :show-all-levels="false"
-      :props="{ multiple: true, checkStrictly: true }" placeholder="试试搜索：指南" filterable
-      @change="handleJglxChecked"></el-cascader>
+    <el-cascader v-model="selectedOptions" :options="options" :show-all-levels="false" :before-filter="filter"
+      :props="{ multiple: true, checkStrictly: true }" placeholder="试试搜索：指南" filterable></el-cascader>
   </div>
 </template>
 
 <script>
-import options from './tree.json';
+import options from './tree1.json';
+import options1 from './tree.json';
+import axios from 'axios'
 
 export default {
   data() {
     return {
-      options, selectedOptions: []
+      options, options1, selectedOptions: []
     }
   },
   methods: {
+    filter(value) {
+      let that = this
+      axios.get("/home/getDeptInfo").then((res) => {
+        console.log(res.data.data);
+        const result = res.data.data.map((maf) => {
+          const item = {
+            value: maf.id,
+            label: maf.name,
+            children: []
+          }
+          return item
+        })
+        that.options = result
+      })
+      return false
+
+    },
     // handleCascaderChange(checkedOptions) {
     //   const checkedValues = checkedOptions.map(option => option.value);
     //   // 自定义逻辑来处理关联选项，例如禁止选择子选项
