@@ -1,5 +1,12 @@
 <template>
-  <v-chart style="width: 100%;height: 500px" class="chart" :option="option"/>
+  <el-row :gutter="20">
+    <el-col :span="6">
+      <v-chart ref="pie" style="width: 100%;height: 500px" class="chart" :option="option"/>
+    </el-col>
+    <el-col :span="18">
+      <div class="grid-content bg-purple"></div>
+    </el-col>
+  </el-row>
 </template>
 <script>
 export default {
@@ -28,9 +35,15 @@ export default {
 
     }
   },
+  methods: {
+
+    handleResize() {
+      this.$refs.pie.resize();
+    }
+  },
   mounted() {
     this.option = {
-      // 有两个标题，所以给title设为数组
+      // 有两个标题
       title: [
         {
           text: '覆盖率',
@@ -58,8 +71,6 @@ export default {
           }
         }
       ],
-      // 饼图不需要坐标系，直接写series
-      // series也是个数组
       series: [
         {
           type: 'pie',
@@ -68,11 +79,8 @@ export default {
           label: {
             normal: {
               show: false,
-              //  position: 'outter'，就是把每个饼对应的文字放在饼外面
-              // position: 'inner',就是把每个饼对应的文字放在饼里
               formatter: function (params) {
                 return `${params.data.label} | ${params.data.value}`
-                // return出去就显示了每个饼对应的文字
               }
             }
           },
@@ -97,12 +105,9 @@ export default {
             borderColor: '#fff'
           },
           name: '品类分布'
-
         }
       ],
-      // legend是旁边的彩色小方框,点击可以隐藏对应的饼,需要每个饼的对应数据中有name属性
       legend: {
-        // 小方块可以滑动
         type: 'scroll',
         // 垂直排列
         orient: 'vertical',
@@ -122,12 +127,16 @@ export default {
         formatter: function (params) {
           const str = params.seriesName + '<br />' +
               params.marker + params.data.label + '<br />' +
-              '数量：' + params.data.value + '<br />' +
-              '占比：' + params.data.percent + '%'
+              '数量：' + params.data.value + '<br />'
           return str
         }
       }
     }
+
+    window.addEventListener('resize', this.handleResize)
+
+    this.$refs.pie.resize();
+
   }
 }
 </script>

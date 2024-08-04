@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <el-cascader v-model="selectedOptions" :options="options" :show-all-levels="false" :before-filter="filter"
-      :props="{ multiple: true, checkStrictly: true }" placeholder="试试搜索：指南" filterable></el-cascader>
+    <el-cascader v-model="selectedOptions" :show-all-levels="false" :before-filter="filter"
+      :props="{ multiple: true, checkStrictly: true, lazy: true, lazyLoad: lazyLoad }" placeholder="试试搜索：指南"
+      filterable></el-cascader>
+
   </div>
 </template>
 
@@ -13,10 +15,22 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      options, options1, selectedOptions: []
+      options, options1, selectedOptions: ["1"]
     }
   },
   methods: {
+    lazyLoad(node, resolve) {
+      let id = 0
+      const { level } = node
+      setTimeout(() => {
+        const nodes = Array.from({ length: level + 1 }).map((item) => ({
+          value: ++id,
+          label: `Option - ${id}`,
+          leaf: level >= 2,
+        }))
+        resolve(nodes)
+      }, 1000)
+    },
     filter(value) {
       let that = this
       axios.get("/home/getDeptInfo").then((res) => {
