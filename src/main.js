@@ -1,29 +1,9 @@
-import Vue from 'vue'
-import App from './Chart.vue'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import {createApp} from 'vue'
+import './style.css'
+import App from './App.vue'
+import _ from 'lodash';
 
-Vue.config.productionTip = false
-Vue.use(ElementUI);
-import {PieChart} from 'echarts/charts';
-import VueEcharts from 'vue-echarts'
-import {CanvasRenderer} from 'echarts/renderers';
-import {
-    TitleComponent,
-    TooltipComponent,
-    LegendComponent,
-} from 'echarts/components';
-import {use} from 'echarts/core';
+const app = createApp(App);
+app.config.globalProperties.$_ = _;
 
-use([
-    CanvasRenderer,
-    TitleComponent,
-    PieChart,
-    TooltipComponent,
-    LegendComponent,
-]);
-Vue.component('v-chart', VueEcharts)
-
-new Vue({
-    render: h => h(App),
-}).$mount('#app')
+app.mount('#app')
