@@ -4,7 +4,7 @@
       <v-chart ref="pie" style="width: 100%;height: 500px" class="chart" :option="option"/>
     </el-col>
     <el-col :span="18">
-      <div class="grid-content bg-purple"></div>
+      <v-chart ref="his" style="width: 100%;height: 500px" class="chart" :option="options2"/>
     </el-col>
   </el-row>
 </template>
@@ -31,7 +31,26 @@ export default {
           name: '未覆盖数量 | 92 '
         }
       ],
-      option: {}
+      option: {},
+
+      options2: {
+        xAxis: {
+          type: 'category',
+          data: ['这是星期一', '这是星期二', '这是星期三', '这是星期四', '这是星期五', '这是星期六', '这是星期日'],
+          axisLabel: {
+            rotate: 90 // 将文字旋转90度
+          }
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar'
+          }
+        ]
+      }
 
     }
   },
@@ -136,6 +155,7 @@ export default {
     window.addEventListener('resize', this.handleResize)
 
     this.$refs.pie.resize();
+
 
   }
 }

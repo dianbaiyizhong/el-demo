@@ -15,22 +15,31 @@ import router from './router/index.js';
 app.use(router)
 
 
-import {PieChart} from 'echarts/charts';
+import {PieChart, LinesChart, LineChart, BarChart} from "echarts/charts";
 import VueEcharts from 'vue-echarts'
 import {CanvasRenderer} from 'echarts/renderers';
 import {
     TitleComponent,
     TooltipComponent,
     LegendComponent,
+    GridComponent,
+    DataZoomComponent,
+    DatasetComponent,
 } from 'echarts/components';
 import {use} from 'echarts/core';
 
 use([
+    BarChart,
     CanvasRenderer,
-    TitleComponent,
+    DatasetComponent,
     PieChart,
+    LinesChart,
+    LineChart,
+    TitleComponent,
     TooltipComponent,
     LegendComponent,
+    GridComponent,
+    DataZoomComponent,
 ]);
 app.component('v-chart', VueEcharts)
 app.mount('#app')
