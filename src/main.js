@@ -1,18 +1,22 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import _ from 'lodash';
+import { createPinia } from 'pinia'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 const app = createApp(App)
+const pinia = createPinia()
+app.use(pinia)
 app.use(ElementPlus)
 app.config.globalProperties.$_ = _
-
-
 import router from './router/index.js';
-
 app.use(router)
+
+
+// mock 方式，正式发布时，注释掉该处即可
+import "@/mock";
 
 
 import {PieChart, LinesChart, LineChart, BarChart} from "echarts/charts";
