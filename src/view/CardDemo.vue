@@ -1,19 +1,26 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="6">
-      <v-chart ref="pie" :loading="loading" style="width: 100%;height: 500px" class="chart" :option="option"/>
-    </el-col>
-    <el-col :span="18">
-      <v-chart ref="his" style="width: 100%;height: 500px" class="chart" :option="options2"/>
-    </el-col>
-  </el-row>
+
+
+  <div class="card-container">
+    <div
+        class="card"
+        v-for="(card, index) in cards"
+        :key="card.id"
+        :style="{ backgroundColor: card.color }"
+        @click="selectCard(index)"
+    >
+      <v-chart :loading="loading" style="width: 100%;height: 300px" class="chart" :option="option"/>
+    </div>
+  </div>
 </template>
 <script>
 export default {
 
   data() {
     return {
+      cards: [{}, {}, {}, {}, {}, {}],
       loading: true,
+      backgroundColor: '#f5f5f5',
       mockData: [
         {
           label: '覆盖数量',
@@ -56,17 +63,14 @@ export default {
   methods: {
 
     handleResize() {
-      this.$refs.pie.resize();
+    },
+    selectCard() {
+
     }
   },
   mounted() {
 
     const that = this
-    window.addEventListener('resize', this.handleResize)
-
-    this.$refs.pie.resize();
-
-
     setTimeout(() => {
       that.option = {
         // 有两个标题
@@ -166,5 +170,23 @@ export default {
 }
 </script>
 <style scoped>
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1 0 auto;
+  min-width: 500px;
+  max-width: calc(20% - 2rem);
+  cursor: pointer;
+}
+
 
 </style>
