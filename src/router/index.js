@@ -5,6 +5,7 @@ import App from '@/App.vue';
 import EchartDemo from '@/view/EchartDemo.vue';
 import TableDemo from '@/view/TableDemo.vue';
 import CardDemo from '@/view/CardDemo.vue';
+import TinymceDemo from '@/view/tinymce/demo.vue';
 
 
 const router = createRouter({
@@ -14,6 +15,8 @@ const router = createRouter({
         {path: '/echart', component: EchartDemo},
         {path: '/table', component: TableDemo},
         {path: '/card', component: CardDemo},
+        {path: '/tinymce', component: TinymceDemo},
+
 
     ],
 })
