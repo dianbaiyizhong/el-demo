@@ -64,7 +64,7 @@ export default {
     },
     toolbar: {
       type: [String, Array],
-      default: 'undo redo |  formatselect | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | lists image media table | codesample code removeformat save preview'
+      default: 'undo redo |  formatselect | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | lists image media table | codesample code removeformat save preview basicDateButton'
     }
   },
   data() {
@@ -89,13 +89,34 @@ export default {
         // 初始化完成
         init_instance_callback: (editor) => {
           console.log("初始化完成：", editor)
+          // editor.ui.registry.addButton('mycustombutton', {
+          //   text: '插入HTML',
+          //   icon: true,
+          //   onclick: function () {
+          //     // 插入HTML代码
+          //     editor.execCommand('mceInsertContent', false, '<div class="ss">这是插入的HTML代码</div>');
+          //   }
+          // });
+
+
         },
+
         // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
         // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
         images_upload_handler: (blobInfo, success, failure) => {
           const img = 'data:image/jpeg;base64,' + blobInfo.base64()
           console.log("图片上传处理：", img)
           success(img)
+        },
+        setup: function (editor) {
+          // https://blog.csdn.net/gdgztt/article/details/135282950
+          editor.ui.registry.addButton('basicDateButton', {
+            text: 'Insert Date',
+            tooltip: 'Insert Current Date',
+            onAction: (_) => {
+              editor.execCommand('mceInsertContent', false, '<div class="ss">这是插入的HTML代码</div>');
+            }
+          });
         }
       },
       textContent: this.value
