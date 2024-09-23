@@ -71,6 +71,7 @@ export default {
     return {
       init: {
         // width: 720,
+        promotion: false,
         height: 300,
         language_url: '/tinymce/langs/zh_CN.js',
         language: 'zh_CN',
