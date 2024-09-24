@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       init: {
+        license_key: 'gpl',
         // width: 720,
         promotion: false,
         height: 300,
