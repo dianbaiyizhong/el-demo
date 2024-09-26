@@ -1,8 +1,10 @@
 <template>
 
 
+  <el-button @click="exportImg">导出图片</el-button>
   <div class="card-container">
     <div
+        :ref="card.id"
         class="card"
         v-for="(card, index) in cards"
         :key="card.id"
@@ -14,11 +16,15 @@
   </div>
 </template>
 <script>
+import html2canvas from "html2canvas"
+
 export default {
 
   data() {
     return {
-      cards: [{}, {}, {}, {}, {}, {}],
+      cards: [{
+        id: "card1"
+      }, {id: "card2"}, {id: "card3"}, {id: "card4"}, {id: "card5"}, {id: "card6"}],
       loading: true,
       backgroundColor: '#f5f5f5',
       mockData: [
@@ -61,6 +67,28 @@ export default {
     }
   },
   methods: {
+    exportImg() {
+      html2canvas(this.$refs.card1[0]).then(canvas => {
+        // 转成图片，生成图片地址
+        let base64 = canvas.toDataURL("image/png");
+        console.info(base64)
+        // 创建一个a标签
+        const link = document.createElement('a');
+
+        // 设置a标签的属性
+        link.href = base64;
+        link.setAttribute('download', "fileName.png");
+        link.style.display = 'none';
+
+        // 将a标签添加到文档中，并模拟点击
+        document.body.appendChild(link);
+        link.click();
+
+        // 移除a标签
+        document.body.removeChild(link);
+      });
+    },
+
 
     handleResize() {
     },
