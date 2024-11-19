@@ -14,6 +14,11 @@ app.config.globalProperties.$_ = _
 import router from './router/index.js';
 app.use(router)
 
+import GridLayout from 'vue3-drr-grid-layout'
+import 'vue3-drr-grid-layout/dist/style.css'
+app.use(GridLayout)
+
+import './style/ripple.min.css';
 
 // mock 方式，正式发布时，注释掉该处即可
 import "@/mock";

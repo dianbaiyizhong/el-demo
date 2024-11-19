@@ -10,14 +10,18 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^6.0.1",
+    "@vueuse/core": "^11.1.0",
     "axios": "^1.7.4",
     "element-plus": "^2.8.0",
     "lodash": "^4.17.21",
+    "panzoom": "^9.4.3",
     "pinia": "^2.2.2",
     "tinymce": "^7.3.0",
     "vue": "^3.4.35",
     "vue-echarts": "^7.0.1",
+    "vue-grid-layout": "^2.4.0",
     "vue-router": "^4.4.3",
+    "vue3-drr-grid-layout": "^1.9.7",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

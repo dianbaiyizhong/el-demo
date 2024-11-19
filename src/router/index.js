@@ -6,6 +6,7 @@ import EchartDemo from '@/view/EchartDemo.vue';
 import TableDemo from '@/view/TableDemo.vue';
 import CardDemo from '@/view/CardDemo.vue';
 import TinymceDemo from '@/view/tinymce/demo.vue';
+import Mask from '@/view/mask.vue';
 
 
 const router = createRouter({
@@ -16,6 +17,7 @@ const router = createRouter({
         {path: '/table', component: TableDemo},
         {path: '/card', component: CardDemo},
         {path: '/tinymce', component: TinymceDemo},
+        {path: '/mask', component: Mask},
 
 
     ],

@@ -1,26 +1,63 @@
 <template>
 
 
-  <div class="card-container">
-    <div
-        class="card"
-        v-for="(card, index) in cards"
-        :key="card.id"
-        :style="{ backgroundColor: card.color }"
-        @click="selectCard(index)"
-    >
-      <v-chart :loading="loading" style="width: 100%;height: 300px" class="chart" :option="option"/>
-    </div>
-  </div>
+  <grid-layout
+      v-model:layout="layout"
+      :col-num="10"
+      :row-height="height"
+      :is-draggable="draggable"
+      :is-resizable="resizable"
+  >
+    <template #default="{ gridItemProps }">
+
+      <grid-item
+          v-for="item in layout"
+          :key="item.i"
+          v-bind="gridItemProps"
+          :x="item.x"
+          :y="item.y"
+          :w="item.w"
+          @container-resized="containerResizedEvent"
+          :h="item.h"
+          :i="item.i"
+      >
+
+        <v-chart :ref="'pie_' + item.i" :loading="loading" :style="divStyle" :option="option"/>
+      </grid-item>
+    </template>
+  </grid-layout>
+
+
 </template>
 <script>
+
 export default {
 
   data() {
     return {
+      divStyle: {
+        width: "200px",
+        height: "200px"
+      },
+      height: 300,
+      draggable: true,
+      resizable: true,
+      layout: [
+        {x: 0, y: 0, w: 2, h: 1, i: 0},
+        {x: 2, y: 0, w: 2, h: 1, i: 1},
+        {x: 4, y: 0, w: 2, h: 1, i: 2},
+        {x: 6, y: 0, w: 2, h: 1, i: 3},
+        {x: 8, y: 0, w: 2, h: 1, i: 4},
+        {x: 8, y: 0, w: 2, h: 1, i: 5},
+        {x: 0, y: 5, w: 2, h: 1, i: 6},
+        {x: 2, y: 5, w: 2, h: 1, i: 7},
+        {x: 4, y: 5, w: 2, h: 1, i: 8},
+        {x: 6, y: 3, w: 2, h: 1, i: 9}
+      ],
       cards: [{}, {}, {}, {}, {}, {}],
       loading: true,
       backgroundColor: '#f5f5f5',
+      option: {},
       mockData: [
         {
           label: '覆盖数量',
@@ -39,36 +76,27 @@ export default {
           name: '未覆盖数量 | 92 '
         }
       ],
-      option: {},
-      options2: {
-        xAxis: {
-          type: 'category',
-          data: ['这是星期一', '这是星期二', '这是星期三', '这是星期四', '这是星期五', '这是星期六', '这是星期日'],
-          axisLabel: {
-            rotate: 90 // 将文字旋转90度
-          }
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [120, 200, 150, 80, 70, 110, 130],
-            type: 'bar'
-          }
-        ]
-      }
     }
   },
   methods: {
-
-    handleResize() {
+    containerResizedEvent: function (param) {
+      console.log(param);
+      this.height = param.width
+      this.divStyle = {
+        width: param.width + "px",
+        height: param.width + "px"
+      }
     },
-    selectCard() {
+    handleResize() {
+      const that = this
+      for (let i = 0; i < 10; i++) {
+        that.$refs['pie_' + i][0].resize();
+      }
 
     }
   },
   mounted() {
+    window.addEventListener('resize', this.handleResize);
 
     const that = this
     setTimeout(() => {
@@ -162,9 +190,21 @@ export default {
           }
         }
       }
-
       that.loading = false
+      that.handleResize()
+
     }, 500)
+
+
+
+
+
+
+
+
+
+
+
 
   }
 }
