@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 
 // 设置响应延时
 Mock.setup({
-    timeout: '100-200'//可以是整数，也可以是‘-’字符串
+    timeout: '3000-3000'//可以是整数，也可以是‘-’字符串
 })
 
 
