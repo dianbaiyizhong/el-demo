@@ -19,6 +19,7 @@ import 'vue3-drr-grid-layout/dist/style.css'
 app.use(GridLayout)
 
 import './style/ripple.min.css';
+import './style/style.css';
 
 // mock 方式，正式发布时，注释掉该处即可
 import "@/mock";

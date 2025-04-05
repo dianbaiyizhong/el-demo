@@ -8,7 +8,7 @@ import CardDemo from '@/view/CardDemo.vue';
 import TinymceDemo from '@/view/tinymce/demo.vue';
 import Mask from '@/view/mask.vue';
 import ParentView from "@/view/ParentSon/ParentView.vue";
-
+import QueryBuilderView from "@/view/QueryBuilderView.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -19,6 +19,7 @@ const router = createRouter({
         {path: '/tinymce', component: TinymceDemo},
         {path: '/mask', component: Mask},
         {path: '/parentSon', component: ParentView},
+        {path: '/queryBuilder', component: QueryBuilderView},
 
 
     ],
