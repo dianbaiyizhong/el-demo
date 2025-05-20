@@ -9,11 +9,16 @@ import TinymceDemo from '@/view/tinymce/demo.vue';
 import Mask from '@/view/mask.vue';
 import ParentView from "@/view/ParentSon/ParentView.vue";
 import QueryBuilderView from "@/view/QueryBuilderView.vue";
+import Ai from "@/view/Ai.vue";
+import ComfyUI from "@/view/comfyui/ComfyUI.vue";
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: '/', component: App},
         {path: '/echart', component: EchartDemo},
+        {path: '/ai', component: Ai},
+        {path: '/ComfyUI', component: ComfyUI},
         {path: '/table', component: TableDemo},
         {path: '/card', component: CardDemo},
         {path: '/tinymce', component: TinymceDemo},
